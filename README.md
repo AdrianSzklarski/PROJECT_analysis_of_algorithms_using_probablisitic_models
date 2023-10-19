@@ -1,7 +1,10 @@
-# Analysis of algorithms using probablisitic models 
+# A project related to scientific issues and programming.  
 
 <br>
 <p>Study of the algorithm treated as a random variable</p>
+
+**Directory: Algorithms**
+1. BigO
 
 <br>
 
