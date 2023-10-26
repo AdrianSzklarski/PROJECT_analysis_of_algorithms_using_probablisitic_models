@@ -5,6 +5,7 @@
 
 **Directory: Algorithms**
 1. BigO
+2. Algorithm for solving tasks in General Physics based on a simple example of a bullet for a black powder weapon. Solution using Python, C and Matlab.
 
 <br>
 
