@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Tank.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #629755; font-style: italic;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #cc7832;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Tank.py</font>
+</center></td></tr></table>
+<pre><span class="s0">&quot;&quot;&quot;   Adrian Szklarski 11.2023  &quot;&quot;&quot;</span>
+
+<span class="s2">import </span><span class="s1">math</span>
+
+
+<span class="s2">class </span><span class="s1">Prom:</span>
+
+    <span class="s2">def </span><span class="s1">__init__(self</span><span class="s2">, </span><span class="s1">data):</span>
+        <span class="s1">self.data = data</span>
+
+    <span class="s2">def </span><span class="s1">get_stresses(self):</span>
+        <span class="s1">Simga_r = (math.pow(self.data[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">) / (math.pow(self.data[</span><span class="s3">1</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">) - math.pow(self.data[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">))) * \</span>
+                  <span class="s1">(</span><span class="s3">1 </span><span class="s1">- (math.pow(self.data[</span><span class="s3">1</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">) / math.pow(self.data[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)))</span>
+        <span class="s1">Simga_Theta = (math.pow(self.data[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">) / (math.pow(self.data[</span><span class="s3">1</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">) - math.pow(self.data[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">))) * \</span>
+                  <span class="s1">(</span><span class="s3">1 </span><span class="s1">+ (math.pow(self.data[</span><span class="s3">1</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">) / math.pow(self.data[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)))</span>
+        <span class="s1">Simga_z = (math.pow(self.data[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">) / (math.pow(self.data[</span><span class="s3">1</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">) - math.pow(self.data[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)))</span>
+        <span class="s1">Simga_derated = round(math.sqrt(</span><span class="s3">0.5 </span><span class="s1">* self.data[</span><span class="s3">0</span><span class="s1">])</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)</span>
+
+        <span class="s2">if </span><span class="s1">Simga_derated &lt; data[</span><span class="s3">4</span><span class="s1">]:</span>
+            <span class="s1">p = self.data[</span><span class="s3">4</span><span class="s1">] / Simga_derated</span>
+            <span class="s1">self.Simga_r = round(Simga_r * p</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)</span>
+            <span class="s1">self.Simga_Theta = round(Simga_Theta * p</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)</span>
+            <span class="s1">self.Simga_z = round(Simga_z * p</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)</span>
+        <span class="s2">else</span><span class="s1">:</span>
+            <span class="s1">exit(</span><span class="s3">0</span><span class="s1">)</span>
+            <span class="s2">return </span><span class="s4">f'The condition for reduced stresses is not met'</span>
+        <span class="s2">return </span><span class="s1">self.Simga_r</span><span class="s2">, </span><span class="s1">self.Simga_Theta</span><span class="s2">, </span><span class="s1">self.Simga_z</span>
+
+    <span class="s2">def </span><span class="s1">get_deformations(self):</span>
+        <span class="s1">self.E_r = round((</span><span class="s3">1 </span><span class="s1">/ self.data[</span><span class="s3">2</span><span class="s1">]) * (self.Simga_r - (self.data[</span><span class="s3">3</span><span class="s1">] * self.Simga_Theta)) - </span>
+                         <span class="s1">(self.data[</span><span class="s3">3</span><span class="s1">] * self.Simga_z / self.data[</span><span class="s3">2</span><span class="s1">])</span><span class="s2">, </span><span class="s3">5</span><span class="s1">)</span>
+        <span class="s1">self.E_Theta = round((</span><span class="s3">1 </span><span class="s1">/ self.data[</span><span class="s3">2</span><span class="s1">]) * (self.Simga_Theta - (self.data[</span><span class="s3">3</span><span class="s1">] * self.Simga_r)) - </span>
+                         <span class="s1">(self.data[</span><span class="s3">3</span><span class="s1">] * self.Simga_z / self.data[</span><span class="s3">2</span><span class="s1">])</span><span class="s2">, </span><span class="s3">5</span><span class="s1">)</span>
+        <span class="s1">C2 = round((self.Simga_r / self.data[</span><span class="s3">2</span><span class="s1">]) * (</span><span class="s3">1 </span><span class="s1">+ self.data[</span><span class="s3">3</span><span class="s1">]) * (</span>
+                <span class="s1">(math.pow(self.data[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">) * math.pow(self.data[</span><span class="s3">1</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)) / (</span>
+                <span class="s1">math.pow(self.data[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">) - math.pow(self.data[</span><span class="s3">1</span><span class="s1">]</span><span class="s2">, </span><span class="s3">2</span><span class="s1">))) * </span><span class="s3">100</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)</span>
+        <span class="s1">C1 = round((C2 / math.pow(self.data[</span><span class="s3">1</span><span class="s1">] * </span><span class="s3">10</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)) * ((</span><span class="s3">1 </span><span class="s1">- self.data[</span><span class="s3">3</span><span class="s1">]) / (</span><span class="s3">1 </span><span class="s1">+ self.data[</span><span class="s3">3</span><span class="s1">]))</span><span class="s2">, </span><span class="s3">5</span><span class="s1">)</span>
+        <span class="s2">return </span><span class="s1">C1</span><span class="s2">, </span><span class="s1">C2</span>
+
+    <span class="s2">def </span><span class="s1">get_radius_change(self):</span>
+        <span class="s1">C1</span><span class="s2">, </span><span class="s1">C2 = self.get_deformations()</span>
+        <span class="s1">self.delta_ra = round((C1 * self.data[</span><span class="s3">0</span><span class="s1">] * </span><span class="s3">10</span><span class="s1">) + C2 / (self.data[</span><span class="s3">0</span><span class="s1">] * </span><span class="s3">10</span><span class="s1">)</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)</span>
+        <span class="s1">self.delta_rb = round((C1 * self.data[</span><span class="s3">1</span><span class="s1">] * </span><span class="s3">10</span><span class="s1">) + C2 / (self.data[</span><span class="s3">1</span><span class="s1">] * </span><span class="s3">10</span><span class="s1">)</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)</span>
+        <span class="s2">return </span><span class="s1">self.delta_ra</span><span class="s2">, </span><span class="s1">self.delta_rb</span>
+
+    <span class="s2">def </span><span class="s1">__str__(self):</span>
+        <span class="s2">return </span><span class="s4">f'Changing the radius: ra = </span><span class="s2">{</span><span class="s1">self.delta_ra</span><span class="s2">} </span><span class="s4">[mm],  rb = </span><span class="s2">{</span><span class="s1">self.delta_rb</span><span class="s2">} </span><span class="s4">[mm]'</span>
+
+
+<span class="s2">if </span><span class="s1">__name__ == </span><span class="s4">'__main__'</span><span class="s1">:</span>
+    <span class="s1">data = [</span>
+        <span class="s4">'a='</span><span class="s2">, </span><span class="s3">67.0</span><span class="s2">, </span><span class="s4">'cm'</span><span class="s2">,</span>
+        <span class="s4">'b='</span><span class="s2">, </span><span class="s3">77.0</span><span class="s2">, </span><span class="s4">'cm'</span><span class="s2">,</span>
+        <span class="s4">'E='</span><span class="s2">, </span><span class="s3">2E5</span><span class="s2">, </span><span class="s4">'MPa'</span><span class="s2">,</span>
+        <span class="s4">'n='</span><span class="s2">, </span><span class="s3">0.3</span><span class="s2">,</span>
+        <span class="s4">'N='</span><span class="s2">, </span><span class="s3">100.0</span><span class="s2">, </span><span class="s4">'MPa'</span>
+    <span class="s1">]</span>
+    <span class="s1">hear = Prom(list(filter(</span><span class="s2">lambda </span><span class="s1">x: type(x) </span><span class="s2">is </span><span class="s1">float</span><span class="s2">, </span><span class="s1">data)))</span>
+    <span class="s1">hear.get_stresses()</span><span class="s2">, </span><span class="s1">hear.get_deformations()</span><span class="s2">, </span><span class="s1">hear.get_radius_change()</span>
+    <span class="s1">print(hear)</span>
+    <span class="s1">print(hear.get_radius_change())</span>
+</pre>
+</body>
+</html>
