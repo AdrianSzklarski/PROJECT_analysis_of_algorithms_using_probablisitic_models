@@ -5,7 +5,8 @@
 
 **Directory: Algorithms**
 1. BigO
-2. Algorithm for solving tasks in General Physics based on a simple example of a bullet for a black powder weapon. Solution using Python, C and Matlab.
+2. Algorithm for solving tasks in General Physics based on a simple example of a bullet for a black powder weapon. Solution using Python, C and Matlab
+3. Calculation of the maximum pressure inside the fuel tank of a rocket missile, Python
 
 <br>
 
