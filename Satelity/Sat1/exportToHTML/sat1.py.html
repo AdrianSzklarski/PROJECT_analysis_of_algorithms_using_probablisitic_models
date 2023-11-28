@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>sat1.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #629755; font-style: italic;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #cc7832;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+.s5 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+sat1.py</font>
+</center></td></tr></table>
+<pre><span class="s0">''' 
+Determination of power received by a space satellite antenna 
+ 
+Created by @AdrianSzklarski, 11.2023 
+'''</span>
+
+<span class="s2">import </span><span class="s1">math</span>
+
+
+<span class="s2">class </span><span class="s1">Antena:</span>
+
+    <span class="s2">def </span><span class="s1">__init__(self</span><span class="s2">, </span><span class="s1">Pt</span><span class="s2">, </span><span class="s1">tetaT</span><span class="s2">, </span><span class="s1">fu</span><span class="s2">, </span><span class="s1">R</span><span class="s2">, </span><span class="s1">Dt</span><span class="s2">, </span><span class="s1">alfa3</span><span class="s2">, </span><span class="s1">tetar</span><span class="s2">, </span><span class="s1">c):</span>
+        <span class="s1">self.Pt = Pt</span>
+        <span class="s1">self.tetaT = tetaT</span>
+        <span class="s1">self.fu = fu</span>
+        <span class="s1">self.R = R</span>
+        <span class="s1">self.Dt = Dt</span>
+        <span class="s1">self.alfa3 = alfa3</span>
+        <span class="s1">self.tetar = tetar</span>
+        <span class="s1">self.c = c</span>
+
+    <span class="s2">def </span><span class="s1">calculation(self):</span>
+        <span class="s1">self.GT = round(</span><span class="s3">10 </span><span class="s1">* math.log10((self.tetaT * math.pow((math.pi * self.Dt * self.fu * </span><span class="s3">1e9 </span><span class="s1">/ self.c)</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)))</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)</span>
+        <span class="s1">self.GR = round(</span><span class="s3">10 </span><span class="s1">* math.log10(self.tetar * math.pow((math.pi * </span><span class="s3">70 </span><span class="s1">/ self.alfa3)</span><span class="s2">, </span><span class="s3">2</span><span class="s1">))</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)</span>
+        <span class="s1">self.LFS = round(</span><span class="s3">10 </span><span class="s1">* math.log10(math.pow((</span><span class="s3">4 </span><span class="s1">* math.pi * self.R * </span><span class="s3">1e6 </span><span class="s1">* self.fu * </span><span class="s3">1e9 </span><span class="s1">/ self.c)</span><span class="s2">, </span><span class="s3">2</span><span class="s1">))</span><span class="s2">, </span><span class="s3">2</span><span class="s1">)</span>
+        <span class="s1">self.Pr_dBW = self.Pt + self.GT + self.GR - self.LFS</span>
+        <span class="s2">return </span><span class="s1">self.GT</span><span class="s2">, </span><span class="s1">self.GR</span><span class="s2">, </span><span class="s1">self.LFS</span><span class="s2">, </span><span class="s1">self.Pr_dBW</span>
+
+    <span class="s2">def </span><span class="s1">__str__(self):</span>
+        <span class="s2">return </span><span class="s4">f'</span><span class="s2">{</span><span class="s1">self.GT</span><span class="s2">}</span><span class="s4">, </span><span class="s2">{</span><span class="s1">self.GR</span><span class="s2">}</span><span class="s4">, </span><span class="s2">{</span><span class="s1">self.LFS</span><span class="s2">}</span><span class="s4">, </span><span class="s2">{</span><span class="s1">self.Pr_dBW</span><span class="s2">}</span><span class="s4">'</span>
+
+
+<span class="s2">if </span><span class="s1">__name__ == </span><span class="s4">'__main__'</span><span class="s1">:</span>
+    <span class="s5"># input data</span>
+    <span class="s1">Pt = </span><span class="s3">20</span>
+    <span class="s1">tetaT = </span><span class="s3">0.6</span>
+    <span class="s1">fu = </span><span class="s3">14</span>
+    <span class="s1">R = </span><span class="s3">40</span>
+    <span class="s1">Dt = </span><span class="s3">4</span>
+    <span class="s1">alfa3 = </span><span class="s3">2</span>
+    <span class="s1">tetar = </span><span class="s3">0.55</span>
+    <span class="s1">c = </span><span class="s3">3e8</span>
+
+    <span class="s5"># --- run program ---</span>
+    <span class="s1">hear = Antena(Pt</span><span class="s2">, </span><span class="s1">tetaT</span><span class="s2">, </span><span class="s1">fu</span><span class="s2">, </span><span class="s1">R</span><span class="s2">, </span><span class="s1">Dt</span><span class="s2">, </span><span class="s1">alfa3</span><span class="s2">, </span><span class="s1">tetar</span><span class="s2">, </span><span class="s1">c)</span>
+    <span class="s1">print(</span><span class="s4">'GT:'</span><span class="s2">, </span><span class="s1">hear.calculation()[</span><span class="s3">0</span><span class="s1">]</span><span class="s2">, </span><span class="s4">'dBi'</span><span class="s1">)</span>
+    <span class="s1">print(</span><span class="s4">'GR:'</span><span class="s2">, </span><span class="s1">hear.calculation()[</span><span class="s3">1</span><span class="s1">]</span><span class="s2">, </span><span class="s4">'dBi'</span><span class="s1">)</span>
+    <span class="s1">print(</span><span class="s4">'LFS:'</span><span class="s2">, </span><span class="s1">hear.calculation()[</span><span class="s3">2</span><span class="s1">]</span><span class="s2">, </span><span class="s4">'dBi'</span><span class="s1">)</span>
+    <span class="s1">print(</span><span class="s4">'Power received by the antenna: '</span><span class="s2">, </span><span class="s1">hear.calculation()[</span><span class="s3">3</span><span class="s1">]</span><span class="s2">, </span><span class="s4">'dBW'</span><span class="s1">)</span>
+</pre>
+</body>
+</html>
