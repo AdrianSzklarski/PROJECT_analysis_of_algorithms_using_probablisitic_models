@@ -2,9 +2,11 @@
 
 
 class TaskOne:
-    def __init__(self, empty_list):
+    def __init__(self, empty_list, memory):
         self.empty_list = empty_list
+        self.memory = memory
 
 if __name__ == '__main__':
     a = []
-    TaskOne(a)
+    m = int(input('Enter how many numbers you want to remember: '))
+    TaskOne(a, m)
